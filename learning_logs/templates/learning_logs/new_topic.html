@@ -1,0 +1,14 @@
+{% extends "learning_logs/base.html" %}
+{% block content %}
+
+    <p>Add a new topic:</p>
+
+    <form action="{% url 'learning_logs:new_topic' %}" method='post'>
+<!--        Django 使用模板标签{% csrf_token %}（见）来防止攻击者利用表单来获得对服务器未经-->
+<!--授权的访问（这种攻击称为跨站请求伪造）。-->
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button name="submit">Add topic</button>
+    </form>
+
+{% endblock content %}
