@@ -10,7 +10,9 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
-import os
+import os, dj_database_url, environ
+env = environ.Env()
+environ.Env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -25,7 +27,7 @@ SECRET_KEY = 'b*wnae07#b!7133sd!_2jp1uxo)9o(tdl)2m0=-e!qqn*kp&$+'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['postgres-free-tier-v2020.gigalixir.com']
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -81,24 +83,9 @@ WSGI_APPLICATION = 'learning_log.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#     }
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ccc80898-20d2-4649-aa71-2b7cacc2345a',
-        'USER': 'ccc80898-20d2-4649-aa71-2b7cacc2345a-user',
-        "PASSWORD": 'pw-daddec53-4a6e-42d4-bf60-794fa389a301',
-        'HOST': 'postgres-free-tier-v2020.gigalixir.com',
-        'PORT': "5432"
-    }
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.0/ref/settings/#auth-password-validators
